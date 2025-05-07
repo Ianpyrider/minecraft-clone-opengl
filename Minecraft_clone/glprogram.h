@@ -14,8 +14,13 @@ std::string get_file_contents(const char* filename);
 class glProgram
 {
 public:
-	void initialize(GLFWwindow* window);
-	void draw();
+	void initialize();
+	void draw(GLFWwindow* window);
 	void finalize();
+
+private:
+	GLuint m_shader; // Id of Shader
+	GLuint m_vbo;    // Stores id of VBO
+	GLuint m_vao;    // Stores id of VAO
 };
 #endif
