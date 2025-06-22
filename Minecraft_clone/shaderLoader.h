@@ -39,7 +39,23 @@ public:
 
 		//TODO: Return ID of fully initialized shader
 
-		
+		GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+		glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+		glCompileShader(vertexShader);
+
+		GLuint fragShader = glCreateShader(GL_FRAGMENT_SHADER);
+		glShaderSource(fragShader, 1, &fragmentShaderSource, NULL);
+		glCompileShader(fragShader);
+
+		GLuint m_shader = glCreateProgram();
+		glAttachShader(m_shader, vertexShader);
+		glAttachShader(m_shader, fragShader);
+		glLinkProgram(m_shader);
+
+		glDeleteShader(vertexShader);
+		glDeleteShader(fragShader);
+
+		return m_shader;
 	}
 };
 

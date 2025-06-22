@@ -20,5 +20,8 @@ private:
 	GLuint m_shader; // Id of Shader
 	GLuint m_vbo;    // Stores id of VBO
 	GLuint m_vao;    // Stores id of VAO
+	GLuint m_ebo;	 // Stores id of EBO
+
+	int num_indices = 0;
 };
 #endif

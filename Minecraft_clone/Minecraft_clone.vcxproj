@@ -148,9 +148,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\glad.c" />
+    <ClCompile Include="Cube.cpp" />
     <ClCompile Include="glprogram.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="shaderLoader.cpp" />
+    <ClCompile Include="Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="default.frag" />
@@ -158,8 +159,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Desktop\Graphics\lab-9-vbos-vaos-Ianpyrider\src\debug.h" />
+    <ClInclude Include="Cube.h" />
     <ClInclude Include="glprogram.h" />
     <ClInclude Include="shaderLoader.h" />
+    <ClInclude Include="Triangle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
