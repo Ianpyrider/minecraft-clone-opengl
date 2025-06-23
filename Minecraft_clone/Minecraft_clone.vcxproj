@@ -162,6 +162,7 @@
     <ClInclude Include="Cube.h" />
     <ClInclude Include="glprogram.h" />
     <ClInclude Include="shaderLoader.h" />
+    <ClInclude Include="stb_image.h" />
     <ClInclude Include="Triangle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

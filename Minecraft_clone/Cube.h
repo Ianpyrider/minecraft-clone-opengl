@@ -16,5 +16,5 @@ private:
 
 	void setVertexData();
 	void addVec3(glm::vec3 v);
-	void addFace(glm::vec4 v);
+	void addFace(glm::vec3 tl, glm::vec3 bl, glm::vec3 br, glm::vec3 tr, glm::vec2 adj_texture);
 };

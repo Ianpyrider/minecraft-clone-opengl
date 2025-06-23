@@ -1,33 +1,57 @@
 #include "Cube.h"
 void Cube::setVertexData() {
-	addVec3({ -0.25f, 0.25f, -0.25f }); //FTL
-	addVec3({ -0.25f, -0.25f, -0.25f }); //FBL
-	addVec3({ 0.25f, -0.25f, -0.25f }); //FBR
-	addVec3({ 0.25f, 0.25f, -0.25f }); //FTR
-
-	addVec3({ -0.25f, 0.25f, 0.25f }); //BTL
-	addVec3({ -0.25f, -0.25f, 0.25f }); //BBL
-	addVec3({ 0.25f, -0.25f, 0.25f }); //BBR
-	addVec3({ 0.25f, 0.25f, 0.25f }); //BTR
+	glm::vec3 ftl(- 0.5f, 0.5f, -0.5f);
+	glm::vec3 fbl(-0.5f, -0.5f, -0.5f);
+	glm::vec3 fbr(0.5f, -0.5f, -0.5f);
+	glm::vec3 ftr(0.5f, 0.5f, -0.5f);
+	glm::vec3 btl(-0.5f, 0.5f, 0.5f); 
+	glm::vec3 bbl(-0.5f, -0.5f, 0.5f); 
+	glm::vec3 bbr(0.5f, -0.5f, 0.5f); 
+	glm::vec3 btr(0.5f, 0.5f, 0.5f);
 
 	// Faces
-	addFace({ 0, 1, 2, 3 }); //Front
-	addFace({ 4, 5, 1, 0 }); //Left
-	addFace({ 7, 6, 5, 4 }); //Back
-	addFace({ 3, 2, 6, 7 }); //Right
-	addFace({ 4, 0, 3, 7 }); //Top
-	addFace({ 1, 5, 6, 2 }); //Bottom
+	addFace(ftl, fbl, fbr, ftr, { 0.5f, 0.5f }); //Front
+	addFace(btl, bbl, fbl, ftl, { 0.5f, 0.5f }); //Left
+	addFace(btr, bbr, bbl, btl, { 0.5f, 0.5f }); //Back
+	addFace(ftr, fbr, bbr, btr, { 0.5f, 0.5f }); //Right
+	addFace(btl, ftl, ftr, btr, { 0.f, 0.5f }); //Top
+	addFace(fbl, bbl, bbr, fbr, { 0.f, 0.f }); //Bottom
 }
 
-void Cube::addFace(glm::vec4 v) {
-	// V contains face indices in winding order
-	m_vertices.push_back(v[0]);
-	m_vertices.push_back(v[2]);
-	m_vertices.push_back(v[3]);
+void Cube::addFace(glm::vec3 tl, glm::vec3 bl, glm::vec3 br, glm::vec3 tr, glm::vec2 adj_texture) {
+	// FORMAT: color (vec3), texture (vec2)
+	addVec3(tl);
+	m_vertexData.push_back(0.f + adj_texture[0]);
+	m_vertexData.push_back(0.5f + adj_texture[1]);
 
-	m_vertices.push_back(v[0]);
-	m_vertices.push_back(v[1]);
-	m_vertices.push_back(v[2]);
+	addVec3(br);
+	m_vertexData.push_back(0.5f + adj_texture[0]);
+	m_vertexData.push_back(0.f + adj_texture[1]);
+
+	addVec3(tr);
+	m_vertexData.push_back(0.5f + adj_texture[0]);
+	m_vertexData.push_back(0.5f + adj_texture[1]);
+
+
+	addVec3(tl);
+	m_vertexData.push_back(0.f + adj_texture[0]);
+	m_vertexData.push_back(0.5f + adj_texture[1]);
+
+	addVec3(bl);
+	m_vertexData.push_back(0.f + adj_texture[0]);
+	m_vertexData.push_back(0.f + adj_texture[1]);
+
+	addVec3(br);
+	m_vertexData.push_back(0.5f + adj_texture[0]);
+	m_vertexData.push_back(0.f + adj_texture[1]);
+
+	//m_vertices.push_back(v[0]);
+	//m_vertices.push_back(v[2]);
+	//m_vertices.push_back(v[3]);
+
+	//m_vertices.push_back(v[0]);
+	//m_vertices.push_back(v[1]);
+	//m_vertices.push_back(v[2]);
 }
 
 void Cube::addVec3(glm::vec3 v) {
