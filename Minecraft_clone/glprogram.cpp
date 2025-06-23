@@ -16,9 +16,10 @@ void glProgram::initialize() { //Set up assets (triangle mesh, textures, shaders
 	m_shader = shaderLoader::createShaderProgram("default.vert", "default.frag");
 
 	// GL settings
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
-	glFrontFace(GL_CCW);
+	//glEnable(GL_CULL_FACE);
+	//glCullFace(GL_BACK);
+	//glFrontFace(GL_CCW);
+	glEnable(GL_DEPTH_TEST);
 	glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 
 	// Define objects
@@ -87,15 +88,37 @@ void glProgram::draw(GLFWwindow* window) { //Render scene (called every frame)
 
 	// Transform vertices
 	glm::mat4 trans = glm::mat4(1.0f);
-	//trans = glm::rotate(trans, glm::radians(45.0f), glm::vec3(0.0, 1.0, 0.0));
 	trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(1.0f, 1.0f, 0.0f));
 
 	unsigned int transformLoc = glGetUniformLocation(m_shader, "transform");
 	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
 
-	// Bind vao and draw
+	//MVP
+	glm::mat4 view = glm::mat4(1.0f);
+	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+
+	glm::mat4 projection;
+	projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+
+	glUniformMatrix4fv(glGetUniformLocation(m_shader, "view"), 1, GL_FALSE, glm::value_ptr(view));
+	glUniformMatrix4fv(glGetUniformLocation(m_shader, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+
+	// Bind vao
 	glBindVertexArray(m_vao);
-	glDrawArrays(GL_TRIANGLES, 0, 36);
+
+	// Draw
+	for (int i = 0; i < 16; i++) {
+		for (int j = 0; j < 16; j++) {
+			for (int k = 0; k < 16; k++) {
+				glm::mat4 model = glm::mat4(1.0f);
+				model = glm::rotate(model, glm::radians(20.f), glm::vec3(1.f, 0.f, 0.f));
+				model = glm::translate(model, glm::vec3(-6.f + i, -2.0f - k, -15.0f - j));
+
+				glUniformMatrix4fv(glGetUniformLocation(m_shader, "model"), 1, GL_FALSE, glm::value_ptr(model));
+				glDrawArrays(GL_TRIANGLES, 0, 36);
+			}
+		}
+	}
 
 	// Unbind vao and shader
 	glBindVertexArray(0);

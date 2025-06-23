@@ -20,6 +20,7 @@ void Cube::setVertexData() {
 
 void Cube::addFace(glm::vec3 tl, glm::vec3 bl, glm::vec3 br, glm::vec3 tr, glm::vec2 adj_texture) {
 	// FORMAT: color (vec3), texture (vec2)
+	// Triangle 1
 	addVec3(tl);
 	m_vertexData.push_back(0.f + adj_texture[0]);
 	m_vertexData.push_back(0.5f + adj_texture[1]);
@@ -32,7 +33,7 @@ void Cube::addFace(glm::vec3 tl, glm::vec3 bl, glm::vec3 br, glm::vec3 tr, glm::
 	m_vertexData.push_back(0.5f + adj_texture[0]);
 	m_vertexData.push_back(0.5f + adj_texture[1]);
 
-
+	// Triangle 2
 	addVec3(tl);
 	m_vertexData.push_back(0.f + adj_texture[0]);
 	m_vertexData.push_back(0.5f + adj_texture[1]);
@@ -44,14 +45,6 @@ void Cube::addFace(glm::vec3 tl, glm::vec3 bl, glm::vec3 br, glm::vec3 tr, glm::
 	addVec3(br);
 	m_vertexData.push_back(0.5f + adj_texture[0]);
 	m_vertexData.push_back(0.f + adj_texture[1]);
-
-	//m_vertices.push_back(v[0]);
-	//m_vertices.push_back(v[2]);
-	//m_vertices.push_back(v[3]);
-
-	//m_vertices.push_back(v[0]);
-	//m_vertices.push_back(v[1]);
-	//m_vertices.push_back(v[2]);
 }
 
 void Cube::addVec3(glm::vec3 v) {
